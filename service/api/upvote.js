@@ -61,7 +61,9 @@ exports.post = function(request, response) {
                     user.update(data[0]);
                 }
                 else {
+					if(data[0].points_collected!=0){
                     data[0].points_collected = data[0].points_collected - 1;
+					}
                     user.update(data[0]);
 
                 }
