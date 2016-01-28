@@ -1,5 +1,5 @@
 var topic = tables.getTable('topic');
-var todoitem = tables.getTable('TodoItem');
+//var todoitem = tables.getTable('TodoItem');
 var opinions = tables.getTable('opinion');
 var user = tables.getTable('user');
 var toDeleteTopicIds = [];
@@ -26,10 +26,12 @@ function DeleteTimedOutTopics() {
                     }
                     else {
                          toDeleteTopicIds.push(results[i].topic_id);
-                        if (results[i].renewal_requests >= 2) {
+                        if (results[i].renewal_requests > 5) {
                             results[i].hours_left = 24;
                             owners = results[i].owners;
                             results[i].owners = results[i].owners + results[i].renewal_requests;
+							results[i].previous_renewal_ids=results[i].previous_renewal_ids+" "+ results[i].renewal_request_ids;
+							results[i].renewal_request_ids="";
                             results[i].renewal_requests = 0;
                             renewed_count = results[i].renewed_count;
                             results[i].renewed_count++;
@@ -37,26 +39,25 @@ function DeleteTimedOutTopics() {
                             points = results[i].points;
                             results[i].points = 0;
                             topic.update(results[i]);
-                             insertPoints();
+                             insertPoints(points,id,results[i].previous_renewal_ids,owners,renewed_count);
 
-                        } else {
-                            id = results[i].uid;
-                            points = results[i].points;
-                           
-                            topic.del({
-                            id: results[i].id
-                        });
-                        deleteOpinion();
-                         user.where({
-                        uid: id,
-                
-                    }).read({
-                            success: insertItemInAllRows
-                
-                        });
-                   
-                                        
-               }
+                        } else
+                        {
+                               id = results[i].uid;
+                                points = results[i].points;
+
+                                topic.del({
+                                id: results[i].id
+                            });
+                            deleteOpinion(results[i].topic_id);
+                             user.where({
+                            uid: id,
+
+                                }).read({
+                                success: insertItemInAllRows
+
+                            });
+                        }
                     }
                 }
             }
@@ -78,28 +79,28 @@ function insertItemInAllRows(aaalItems) {
                             }
                         }
                     }
-function deleteOpinion(){
-      for (j = 0; j < toDeleteTopicIds.length; j++) {
+function deleteOpinion(deleteId){
+
         opinions.where({
-            topic_id: toDeleteTopicIds[j],
+            topic_id: deleteId,
         }).read({
                 success: function(resultData) {
                     for (var jj = 0; jj < resultData.length; jj++) {
                         //opinions.delete(resultData[jj]);
-                         topic.del({
+                         opinions.del({
                             id: resultData[jj].id
                         });
                     }
                 }
             });
 
-    }
+
 }
-function insertPoints() {
-    pt=points;
-    if (owners == 1) {
+function insertPoints(pt1,userId,renewalIds,owners1,renewCount) {
+    pt=pt1;
+    if (owners1 == 1) {
         user.where({
-            uid: id,
+            uid: userId,
 
         }).read({
                 success: uidpoints
@@ -107,19 +108,20 @@ function insertPoints() {
             });
 
     }
-    else if (owners > 1) {
-        if (renewed_count = 2) {
-            pt = .3 * points;
+    else if (owners1 > 1) {
+        if (renewedCount = 2) {
+           pt=pt1*0.3;
             user.where({
-                uid: id,
+                uid: userId,
 
             }).read({
                     success: uidpoints
 
                 });
-            var res = renewal_request_ids.split(" ");
+            var res = renewalIds.split(" ");
             for (var k = 1; k < res.length; k++) {
-                pt = points / renewed_count;
+				
+                pt=.7(pt1/renewedCount);
                 user.where({
                     uid: res[k]
 
@@ -131,12 +133,12 @@ function insertPoints() {
         }
 
     }
-    else if (owners > 1) {
-        if (renewed_count > 2) {
+    else if (owners1 > 1) {
+        if (renewedCount > 2) {
 
-            var res = renewal_request_ids.split(" ");
+            var res = renewalIds.split(" ");
             for (var k = 0; k < res.length; k++) {
-                pt = points / renewed_count;
+                pt = pt1 / renewed_count;
                 user.where({
                     uid: res[k]
 
@@ -152,13 +154,11 @@ function insertPoints() {
 }
 function uidpoints(aaalItems) {
     if (aaalItems.length > 0) {
-        for (var tazo2 = 0; tazo2 < aaalItems.length; tazo2++) {
-            var tazo4 = aaalItems[tazo2].points_collected;
-            tazo4 = tazo4 + pt;
+        
 
-            aaalItems[tazo2].points_collected = tazo4;
+            aaalItems[0].points_collected =aaalItems[0].points_collected+pt;
 
-            user.update(aaalItems[tazo2]);
-        }
+            user.update(aaalItems[0]);
+       
     }
 }
