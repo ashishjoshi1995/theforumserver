@@ -19,7 +19,7 @@ function DeleteTimedOutTopics() {
             success: function(results) {
 
                 for (var i = 0; i < results.length; i++) {
-                    if (results[i].hours_left >= 0) {
+                    if (results[i].hours_left > 0) {
 
                         results[i].hours_left--;
                         topic.update(results[i]);
