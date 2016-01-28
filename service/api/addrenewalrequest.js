@@ -22,7 +22,11 @@ exports.post = function(request, response) {
             results[0].renewal_requests++;
             results[0].notif_new_renewal_request = results[0].notif_new_renewal_request+1;
             gaurav = results[0].renewal_requests;
+			if(results[0].renewal_request_ids!=null){
             results[0].renewal_request_ids=results[0].renewal_request_ids+" " +item.uid;
+			}else{
+				results[0].renewal_request_ids=item.uid;
+				}
             results[0].points= results[0].points+3;
             topic.update(results[0]);
            // response.send(statusCodes.OK, { message : results[0].renewal_request});
