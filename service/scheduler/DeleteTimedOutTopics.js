@@ -109,7 +109,7 @@ function insertPoints(pt1,userId,renewalIds,owners1,renewCount) {
 
     }
     else if (owners1 > 1) {
-        if (renewedCount = 2) {
+        if (renewCount = 2) {
            pt=pt1*0.3;
             user.where({
                 uid: userId,
@@ -121,31 +121,33 @@ function insertPoints(pt1,userId,renewalIds,owners1,renewCount) {
             var res = renewalIds.split(" ");
             for (var k = 1; k < res.length; k++) {
 				
-                pt=.7(pt1/renewedCount);
+                pt=.7(pt1/renewCount);
+				if(res[k] !=null){
                 user.where({
                     uid: res[k]
 
                 }).read({
                         success: uidpoints
 
-                    });
+                    });}
             }
         }
 
     }
     else if (owners1 > 1) {
-        if (renewedCount > 2) {
+        if (renewCount > 2) {
 
             var res = renewalIds.split(" ");
             for (var k = 0; k < res.length; k++) {
-                pt = pt1 / renewed_count;
+                pt = pt1 / renewCount;
+				if(res[k] !=null){
                 user.where({
                     uid: res[k]
 
                 }).read({
                         success: uidpoints
 
-                    });
+                    });}
             }
         }
 
