@@ -27,7 +27,7 @@ exports.post = function(request, response) {
 						var r=results[0].renewal_request_ids.length;
 						if((p+q)==r)
 						{
-							results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid,"");
+							results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid+"","");
 							}
 							else{
 						results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid+" ","");
