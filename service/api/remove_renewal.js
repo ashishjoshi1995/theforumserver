@@ -22,8 +22,8 @@ exports.post = function(request, response) {
             //results[0].notif_new_renewal_request = results[0].notif_new_renewal_request+1;
             gaurav = results[0].renewal_requests;
 			if(results[0].renewal_request_ids!=null){
-            var p=results[0].renewal_request_ids.indexOf(item.uid);
-						var q=item.length;
+            			var p=results[0].renewal_request_ids.indexOf(item.uid);
+						var q=item.uid.length;
 						var r=results[0].renewal_request_ids.length;
 						if((p+q)==r)
 						{
