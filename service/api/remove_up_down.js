@@ -34,9 +34,9 @@ exports.post = function(request, response) {
                     //data[0].notif_upvotes = data[0].notif_upvotes + 1;
                     if (data[0].upvote_ids != null) {
 						var p=data[0].upvote_ids.indexOf(item.id);
-						var q=item.length;
+						var q=item.id.length;
 						var r=data[0].upvote_ids.length;
-						if((p+q+1)==r)
+						if((p+q)==r)
 						{data[0].upvote_ids=data[0].upvote_ids.remove(item.id,"");
 							}
 							else{
@@ -50,9 +50,9 @@ exports.post = function(request, response) {
                    // data[0].notif_downvotes = data[0].notif_downvotes + 1;
                     if (data[0].downvote_ids != null) {
                        var p=data[0].downvote_ids.indexOf(item.id);
-						var q=item.length;
+						var q=item.id.length;
 						var r=data[0].downvote_ids.length;
-						if((p+q+1)==r)
+						if((p+q)==r)
 						{data[0].downvote_ids=data[0].downvote_ids.remove(item.id,"");
 							}
 							else{
