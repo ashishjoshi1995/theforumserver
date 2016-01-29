@@ -22,15 +22,15 @@ exports.post = function(request, response) {
             //results[0].notif_new_renewal_request = results[0].notif_new_renewal_request+1;
             gaurav = results[0].renewal_requests;
 			if(results[0].renewal_request_ids!=null){
-            var p=data[0].renewal_request_ids.indexOf(item.id);
+            var p=results[0].renewal_request_ids.indexOf(item.id);
 						var q=item.length;
-						var r=data[0].renewal_request_ids.length;
+						var r=results[0].renewal_request_ids.length;
 						if((p+q+1)==r)
 						{
-							data[0].renewal_request_ids=data[0].renewal_request_ids.remove(item.id,"");
+							results[0].renewal_request_ids=results[0].renewal_request_ids.remove(item.id,"");
 							}
 							else{
-						data[0].renewal_request_ids=data[0].renewal_request_ids.remove(item.id+" ","");
+						results[0].renewal_request_ids=results[0].renewal_request_ids.remove(item.id+" ","");
 							}
 							 results[0].points= results[0].points-3;
            					 topic.update(results[0]);
