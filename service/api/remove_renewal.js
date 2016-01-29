@@ -27,10 +27,10 @@ exports.post = function(request, response) {
 						var r=results[0].renewal_request_ids.length;
 						if((p+q+1)==r)
 						{
-							results[0].renewal_request_ids=results[0].renewal_request_ids.remove(item.uid,"");
+							results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid,"");
 							}
 							else{
-						results[0].renewal_request_ids=results[0].renewal_request_ids.remove(item.uid+" ","");
+						results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid+" ","");
 							}
 							 results[0].points= results[0].points-3;
            					 topic.update(results[0]);
