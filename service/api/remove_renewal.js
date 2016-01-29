@@ -25,7 +25,7 @@ exports.post = function(request, response) {
             var p=results[0].renewal_request_ids.indexOf(item.id);
 						var q=item.length;
 						var r=results[0].renewal_request_ids.length;
-						if((p+q+1)==r)
+						if((p+q)==r)
 						{
 							results[0].renewal_request_ids=results[0].renewal_request_ids.replace(item.uid,"");
 							}
