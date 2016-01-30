@@ -39,7 +39,7 @@ function DeleteTimedOutTopics() {
                             points = results[i].points;
                             results[i].points = 0;
                             topic.update(results[i]);
-                             insertPoints(points,id,results[i].previous_renewal_ids,owners,renewed_count);
+                            insertPoints(points,id,results[i].previous_renewal_ids,owners,renewed_count);
 
                         } else
                         {
@@ -69,14 +69,10 @@ function DeleteTimedOutTopics() {
 }
 function insertItemInAllRows(aaalItems) {
                         if (aaalItems.length > 0) {
-                            for (var tazo2 = 0; tazo2 < aaalItems.length; tazo2++) {
-                                var tazo4 = aaalItems[tazo2].points_collected;
-                                tazo4 = tazo4 + points;
+                           aaalItems[0].points_collected =aaalItems[0].points_collected +points;
                 
-                                aaalItems[tazo2].points_collected = tazo4;
-                
-                                user.update(aaalItems[tazo2]);
-                            }
+                                user.update(aaalItems[0]);
+                           
                         }
                     }
 function deleteOpinion(deleteId){
@@ -108,8 +104,8 @@ function insertPoints(pt1,userId,renewalIds,owners1,renewCount) {
             });
 
     }
-    else if (owners1 > 1) {
-        if (renewCount = 2) {
+    else if (owners1 > 1 && renewCount == 2) {
+       
            pt=pt1*0.3;
             user.where({
                 uid: userId,
@@ -129,8 +125,10 @@ function insertPoints(pt1,userId,renewalIds,owners1,renewCount) {
                 }).read({
                         success: uidpoints
 
-                    });}
-            }
+                    });
+					
+					}
+            
         }
 
     }

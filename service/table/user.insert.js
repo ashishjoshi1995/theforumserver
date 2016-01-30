@@ -1,6 +1,17 @@
 function insert(item, user, request) {
 item.points_collected = 0; 
-item.status = "Rookie";   
+item.status = "Rookie";  
+item.upvotes_received=0;
+item.downvotes_croaked=0;
+item.upvotes_croaked=0;
+item.downvotes_received=0;
+item.renewal_request_croaked=0;
+item.renewal_request_received=0;
+item.toatal_topic_renewed=0;
+item.total_characters=0;
+item.opinions_count=0;
+item.opinions_received=0;
+
 item.uid = generateUUID();
     request.execute();
 

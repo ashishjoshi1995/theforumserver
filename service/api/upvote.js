@@ -58,13 +58,41 @@ exports.post = function(request, response) {
             success: function(data) {
                 if (item.operation_chosen == 1) {
                     data[0].points_collected = data[0].points_collected + 1;
+					if(data[0].upvotes_received!=null){
+					data[0].upvotes_received++;}
+					else{data[0].upvotes_received=1;}
+                    
+					
                     user.update(data[0]);
                 }
                 else {
 					if(data[0].points_collected!=0){
                     data[0].points_collected = data[0].points_collected - 1;
 					}
+					if(data[0].downvotes_received!=null){
+					data[0].downvotes_received++;}
+					else{data[0].downvotes_received=1;}
                     user.update(data[0]);
+
+                }
+
+            }
+        });
+		user.where({
+        uid: item.id
+    }).read({
+            success: function(data1) {
+                if (item.operation_chosen == 1) {
+                   if(data1[0].upvotes_croaked!=null){
+					data1[0].upvotes_croaked++;}
+					else{data1[0].upvotes_croaked=1;}
+                    user.update(data1[0]);
+                }
+                else {
+					if(data1[0].downvotes_croaked!=null){
+					data1[0].downvotes_croaked++;}
+					else{data1[0].downvotes_croaked=1;}
+					user.update(data1[0]);
 
                 }
 

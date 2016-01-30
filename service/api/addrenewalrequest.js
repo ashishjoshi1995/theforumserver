@@ -6,7 +6,7 @@ exports.post = function(request, response) {
      var topic = tables.getTable('topic');
      var gaurav;
       var postValues = request.body;
-
+	var user = tables.getTable('user');
     if (postValues.members != null)
         postValues = postValues.members;
 
@@ -14,6 +14,18 @@ exports.post = function(request, response) {
         topic_id : postValues.topic_id,
         uid : postValues.uid       
     }
+	user.where({
+        uid: item.uid
+    }).read({
+            success: function(data1) {
+                if(data1[0].renewal_request_croaked!=null){
+					data1[0].renewal_request_croaked++;}
+					else{data1[0].renewal_request_croaked=1;}
+					
+					user.update(data1[0]);
+
+            }
+        });
     
     topic.where({
        topic_id : item.topic_id 
@@ -29,9 +41,24 @@ exports.post = function(request, response) {
 				}
             results[0].points= results[0].points+3;
             topic.update(results[0]);
+			renewalReceivedUpdate(results[0].uid);
            // response.send(statusCodes.OK, { message : results[0].renewal_request});
         }
     });
+	function renewalReceivedUpdate(uid1){
+	user.where({
+        uid: uid1
+    }).read({
+            success: function(data1) {
+                if(data1[0].renewal_request_received!=null){
+					data1[0].renewal_request_received++;}
+					else{data1[0].renewal_request_received=1;}
+					
+					user.update(data1[0]);
+
+            }
+        });
+}
 
     response.send(statusCodes.OK, { message : gaurav});
 };
