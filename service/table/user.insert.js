@@ -8,6 +8,7 @@ item.downvotes_received=0;
 item.renewal_request_croaked=0;
 item.renewal_request_received=0;
 item.toatal_topic_renewed=0;
+item.total_topic_renewed_croaked=0;
 item.total_characters=0;
 item.opinions_count=0;
 item.opinions_received=0;
