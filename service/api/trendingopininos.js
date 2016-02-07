@@ -17,7 +17,7 @@ exports.post = function(request, response) {
     var topic = tables.getTable('topic');
     opinion.orderByDescending("upvotes").read({
         success: function(results) {
-            var a = 10;
+            var a = 20;
             var string = results[0].topic_id;
             for (var j = 0; j < results.length; j++) {
                 var h = false;
