@@ -7,6 +7,22 @@ function insert(item, user, request) {
     item.notif_downvotes = 0;
     item.notif_upvotes = 0;
     var topic = tables.getTable('topic');
+	
+	 var user = tables.getTable('user');
+
+	
+	user.where({
+        uid: item.uid
+    }).read({
+            success: function(data1) {
+                if(data1[0].opinions_count!=null){
+					data1[0].opinions_count++;}
+					else{data1[0].opinions_count=1;}
+					data1[0].total_characters=item.opinion.length;
+					user.update(data1[0]);
+
+            }
+        });
 
     topic.where({
         topic_id: item.topic_id,
@@ -23,9 +39,23 @@ function insert(item, user, request) {
                 }
                 results[0].points = results[0].points + 2;
                 topic.update(results[0]);
+				opinionReceivedUpdate(results[0].uid);
             }
         });
+function opinionReceivedUpdate(uid1){
+	user.where({
+        uid: uid1
+    }).read({
+            success: function(data1) {
+                if(data1[0].opinions_received!=null){
+					data1[0].opinions_received++;}
+					else{data1[0].opinions_received=1;}
+					
+					user.update(data1[0]);
 
+            }
+        });
+}
     request.execute();
 
 }

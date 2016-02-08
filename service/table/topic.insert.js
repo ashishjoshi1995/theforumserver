@@ -6,6 +6,7 @@ item.hours_left=24;
 item.renewed_count=0;
 item.total_opinions = 0;
 item.notif_count = 0;
+item.previous_renewal_ids=item.uid;;
 
 //item.renewal_request_ids=item.uid;
 item.renewal_requests=0;
