@@ -41,7 +41,8 @@ exports.post = function(request, response) {
                     }
                     else { data[0].upvote_ids = item.id; }
 					  //data[0].notif_count++;
-                    data[0].downvotes = data[0].downvotes - 1;
+                   if(data[0].downvotes!=0){
+                    data[0].downvotes= data[0].downvotes - 1;}
                    // data[0].notif_downvotes = data[0].notif_downvotes + 1;
                     if (data[0].downvote_ids != null) {
                        var p=data[0].downvote_ids.indexOf(item.id);
@@ -63,7 +64,8 @@ exports.post = function(request, response) {
                         data[0].downvote_ids = data[0].downvote_ids + " " + item.id;
                     }
                     else { data[0].downvote_ids = item.id; }
-					data[0].upvotes = data[0].upvotes - 1;
+					if( data[0].upvotes!=0){
+                     data[0].upvotes=  data[0].upvotes - 1;}
 					if (data[0].upvote_ids != null) {
 						var p=data[0].upvote_ids.indexOf(item.id);
 						var q=item.id.length;

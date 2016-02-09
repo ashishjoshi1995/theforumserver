@@ -27,8 +27,9 @@ exports.post = function(request, response) {
             success: function(data) {
                 id=data[0].uid;
                 if (item.operation_chosen == 1) {
-                    
-                    data[0].upvotes = data[0].upvotes - 1;
+                    if( data[0].upvotes!=0){
+                     data[0].upvotes=  data[0].upvotes - 1;}
+                    //data[0].upvotes = data[0].upvotes - 1;
                     
                     //data[0].notif_count++;
                     //data[0].notif_upvotes = data[0].notif_upvotes + 1;
@@ -46,7 +47,9 @@ exports.post = function(request, response) {
                 }
                 else {
                     //data[0].notif_count++;
-                    data[0].downvotes = data[0].downvotes - 1;
+					if(data[0].downvotes!=0){
+                    data[0].downvotes= data[0].downvotes - 1;}
+                    //data[0].downvotes = data[0].downvotes - 1;
                    // data[0].notif_downvotes = data[0].notif_downvotes + 1;
                     if (data[0].downvote_ids != null) {
                        var p=data[0].downvote_ids.indexOf(item.id);
