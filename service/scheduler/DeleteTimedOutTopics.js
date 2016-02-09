@@ -10,7 +10,7 @@ var owners;
 var pt;
 var renewed_count;
 var renewal_request_ids;
-function DeleteTimedOutTopics() {
+function DeleteTimedOutTopics()  {
 
 
     topic.where({
