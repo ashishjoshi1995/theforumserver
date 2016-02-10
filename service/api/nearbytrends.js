@@ -1,25 +1,39 @@
 
 
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
-    // var postValues = request.body;
-    // if (postValues.members != null)
-    // postValues = postValues.members;
+     var postValues = request.body;
+		 if (postValues.members != null)
+        postValues = postValues.members;
+		
+		var item = {
+        city : postValues.city,
+        longitude : postValues.longitude,
+		latitude : postValues.latitude      
+    }
     var data = [];
     //var data1 = [];
     //var data3;
     var tids = [];
 
     var tables = request.service.tables;
-    var opinion = tables.getTable('opinion');
-    var topic = tables.getTable('topic');
-    opinion.orderByDescending("upvotes").read({
+    var opinion = tables.getTable('areaopinions');
+    var topic = tables.getTable('areatopics');
+    opinion.where({
+            city: item.city
+        }).orderByDescending("upvotes").read({
         success: function(results) {
+			
             var a = 20;
             var string = results[0].topic_id;
             for (var j = 0; j < results.length; j++) {
+				if(results[j].longitude!=null && results[j].latitude!=null){
+							var dis=distance(results[j].latitude,results[j].longitude,item.latitude,item.longitude);
+							if(dis<1){
+								continue;
+							}
+							
+						}
+						else{continue;}
                 var h = false;
                 if (j != 0) {
                     var string1 = string.split(" ");
