@@ -10,14 +10,14 @@ exports.post = function(request, response) {
         postValues = postValues.members;
 		
 		var item = {
-        city : postValues.city,
+      
         longitude : postValues.longitude,
 		latitude : postValues.latitude      
     }
 		
 		
 		 areatopics.where({
-            city: item.city
+            
         }).read({
                 success: function(results1) {
                    for (var j = 0; j < results1.length; j++) {
