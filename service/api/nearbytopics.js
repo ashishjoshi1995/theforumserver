@@ -23,7 +23,7 @@ exports.post = function(request, response) {
                    for (var j = 0; j < results1.length; j++) {
 						if(results1[j].longitude!=null && results1[j].latitude!=null){
 							var dis=distance(results1[j].latitude,results1[j].longitude,item.latitude,item.longitude);
-							if(dis>1){
+							if(dis<1){
 								data.push(results1[j]);
 							}
 							else{continue;}
