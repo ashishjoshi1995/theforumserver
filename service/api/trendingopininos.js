@@ -35,7 +35,14 @@ exports.post = function(request, response) {
                     if (h == true) continue;
                     a--;
                     string = string + " " + results[j].topic_id;
-                }
+                }var x="0";
+				var y="0";
+				if(results[j].longitude!=null){
+					x=results[j].longitude.toString();
+				}
+				if(results[j].latitude!=null){
+					y=results[j].latitude.toString();
+				}
                 tids.push(results[j].topic_id);
                 data.push({
                     "serverId": results[j].id,
@@ -48,8 +55,8 @@ exports.post = function(request, response) {
                     "trends_id": results[j].opinion_id,
                     "downvote_ids": results[j].downvote_ids,
                     "upvote_ids": results[j].upvote_ids,
-					"longitude":results[j].longitude.toString(),
-					"latitude":results[j].latitude.toString(),
+					"longitude":x,
+					"latitude":y,
                     "hours_left": "0",
                     "renewal": "0",
                     "description": "x",
