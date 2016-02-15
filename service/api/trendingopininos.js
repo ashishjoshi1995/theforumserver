@@ -39,6 +39,7 @@ exports.post = function(request, response) {
                 tids.push(results[j].topic_id);
                 data.push({
                     "serverId": results[j].id,
+					"uid"	:results[j].uid,
                     "topic_id": results[j].topic_id,
                     "opinionText": results[j].opinion,
                     "downvotes": results[j].downvotes.toString(),
@@ -47,6 +48,8 @@ exports.post = function(request, response) {
                     "trends_id": results[j].opinion_id,
                     "downvote_ids": results[j].downvote_ids,
                     "upvote_ids": results[j].upvote_ids,
+					"longitude":results[j].longitude.toString(),
+					"latitude":results[j].latitude.toString(),
                     "hours_left": "0",
                     "renewal": "0",
                     "description": "x",
