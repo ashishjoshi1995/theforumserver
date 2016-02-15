@@ -26,7 +26,7 @@ exports.post = function(request, response) {
             for (var j = 0; j < results.length; j++) {
 				if(results[j].longitude!=null && results[j].latitude!=null){
 							var dis=distance(results[j].latitude,results[j].longitude,item.latitude,item.longitude);
-							if(dis<1){
+							if(dis>=1){
 								continue;
 							}
 							
