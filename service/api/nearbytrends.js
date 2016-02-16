@@ -20,6 +20,7 @@ exports.post = function(request, response) {
     var topic = tables.getTable('areatopics');
     opinion.orderByDescending("upvotes").read({
         success: function(results) {
+			if(results.length>0){
 			
             var a = 20;
             var string = results[0].topic_id;
@@ -74,6 +75,12 @@ exports.post = function(request, response) {
             var data2 = JSON.stringify(data);
             var d = JSON.stringify(tids);
             Login(data2, d, data.length - 1);
+			}
+			else{
+				response.send(statusCodes.OK, {
+                            message: "null"
+                        });
+			}
 
         }
     });
@@ -99,13 +106,10 @@ exports.post = function(request, response) {
 					}
 					if (i == 0) {
 						da2 = JSON.stringify(data1);
-						if(da2==null){response.send(statusCodes.OK, {
-                            message: "null"
-                        });}
-						else{
+						
                         response.send(statusCodes.OK, {
                             message: da2
-                        });}
+                        });
                     }
                     else {
                         i = i - 1;
