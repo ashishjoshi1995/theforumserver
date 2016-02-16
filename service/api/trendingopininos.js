@@ -83,7 +83,7 @@ exports.post = function(request, response) {
             topic_id: da[i]
         }).read({
                 success: function(results1) {
-					if(results1.length!=0)
+					if(results1.length>0)
 					{
                     data1[i].hours_left = results1[0].hours_left.toString();
                     data1[i].renewal = results1[0].renewed_count.toString();
@@ -91,7 +91,7 @@ exports.post = function(request, response) {
                     if(results1[0].renewal_request_ids!=null){
                     data1[i].renewalIds = results1[0].renewal_request_ids.toString();
                     }
-                    if (i == 0) {
+                   } if (i == 0) {
                         da2 = JSON.stringify(data1);
                         response.send(statusCodes.OK, {
                             message: da2
@@ -103,7 +103,8 @@ exports.post = function(request, response) {
                         var d = JSON.stringify(da);
                         Login(data2, d, i);
                     }
-				}
+				
+               
                 }
             });
     }
