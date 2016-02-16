@@ -22,7 +22,7 @@ function update(item, user, request) {
 					success : function(resultData){
 						for (var jj = 0; jj < resultData.length; jj++) {
                         //opinions.delete(resultData[jj]);
-                         opinions.del({
+                         opinion.del({
                             id: resultData[jj].id
                         });
                     }
