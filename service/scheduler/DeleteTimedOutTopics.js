@@ -2,6 +2,8 @@ var topic = tables.getTable('topic');
 //var todoitem = tables.getTable('TodoItem');
 var opinions = tables.getTable('opinion');
 var user = tables.getTable('user');
+var areatopics= tables.getTable('areatopics');
+var areaopinions=tables.getTable('areaopinions');
 
 var j;
 var id;
@@ -62,6 +64,55 @@ function DeleteTimedOutTopics()  {
                 }
             }
         });
+areatopics.where({
+
+    }).read({
+            success: function(results) {
+
+                for (var i = 0; i < results.length; i++) {
+                    if (results[i].hours_left > 0) {
+
+                        results[i].hours_left--;
+                        areatopics.update(results[i]);
+                    }
+                    else {
+                         
+                        if (results[i].renewal_requests > 5) {
+                            results[i].hours_left = 24;
+                            owners = results[i].owners;
+                            results[i].owners = results[i].owners + results[i].renewal_requests;
+							results[i].previous_renewal_ids=results[i].previous_renewal_ids+" "+ results[i].renewal_request_ids;
+							results[i].renewal_request_ids="";
+                            results[i].renewal_requests = 0;
+                            renewed_count = results[i].renewed_count;
+                            results[i].renewed_count++;
+                            id = results[i].uid;
+                            points = results[i].points;
+                            results[i].points = 0;
+                            areatopics.update(results[i]);
+                            insertPoints(points,id,results[i].previous_renewal_ids,owners,renewed_count);
+
+                        } else
+                        {
+                               id = results[i].uid;
+                                points = results[i].points;
+
+                                areatopics.del({
+                                id: results[i].id
+                            });
+                            deleteAreaOpinion(results[i].topic_id);
+                             user.where({
+                            uid: id,
+
+                                }).read({
+                                success: insertItemInAllRows
+
+                            });
+                        }
+                    }
+                }
+            }
+        });
 
   
 
@@ -84,6 +135,23 @@ function deleteOpinion(deleteId){
                     for (var jj = 0; jj < resultData.length; jj++) {
                         //opinions.delete(resultData[jj]);
                          opinions.del({
+                            id: resultData[jj].id
+                        });
+                    }
+                }
+            });
+
+
+}
+function deleteAreaOpinion(deleteId){
+
+        areaopinions.where({
+            topic_id: deleteId,
+        }).read({
+                success: function(resultData) {
+                    for (var jj = 0; jj < resultData.length; jj++) {
+                        //opinions.delete(resultData[jj]);
+                         areaopinions.del({
                             id: resultData[jj].id
                         });
                     }
