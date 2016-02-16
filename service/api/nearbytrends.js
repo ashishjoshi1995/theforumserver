@@ -97,11 +97,15 @@ exports.post = function(request, response) {
                     data1[i].renewalIds = results1[0].renewal_request_ids.toString();
                     }
 					}
-                    if (i == 0) {
-                        da2 = JSON.stringify(data1);
+					if (i == 0) {
+						da2 = JSON.stringify(data1);
+						if(da2==null){response.send(statusCodes.OK, {
+                            message: "null"
+                        });}
+						else{
                         response.send(statusCodes.OK, {
                             message: da2
-                        });
+                        });}
                     }
                     else {
                         i = i - 1;
