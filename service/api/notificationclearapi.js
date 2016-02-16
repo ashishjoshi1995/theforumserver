@@ -6,6 +6,9 @@ exports.post = function(request, response) {
     var tables = request.service.tables;
     var topic = tables.getTable('topic');
     var opinion = tables.getTable('opinion');
+	var areaTopic = tables.getTable('areatopics');
+	var areaOpinion = tables.getTable('areaopinions'); 
+	
     var postValues = request.body;
     
     if (postValues.members != null)
@@ -24,6 +27,32 @@ exports.post = function(request, response) {
                 results[j].notif_new_opinions = 0;
                 results[j].notif_new_renewal_request = 0;
                 topic.update(results[j]);
+            }
+        }
+    });
+	
+	 areaTopic.where({
+       uid : item.uid 
+    }).read({
+        success : function(results){
+            for(var j=0;j <results.length;j++){
+                results[j].notif_count = 0;
+                results[j].notif_new_opinions = 0;
+                results[j].notif_new_renewal_request = 0;
+                areaTopic.update(results[j]);
+            }
+        }
+    });
+	
+	 areaOpinion.where({
+       uid : item.uid 
+    }).read({
+        success : function(results){
+            for(var j=0;j <results.length;j++){
+                result[k].notif_count = 0;
+                result[k].notif_downvotes =0;
+                result[k].notif_upvotes =0;
+                areaOpinion.update(results[j]);
             }
         }
     });
