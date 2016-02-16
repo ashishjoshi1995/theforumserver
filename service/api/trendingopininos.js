@@ -83,6 +83,8 @@ exports.post = function(request, response) {
             topic_id: da[i]
         }).read({
                 success: function(results1) {
+					if(results1!=null)
+					{
                     data1[i].hours_left = results1[0].hours_left.toString();
                     data1[i].renewal = results1[0].renewed_count.toString();
                     data1[i].description = results1[0].description.toString();
@@ -101,6 +103,7 @@ exports.post = function(request, response) {
                         var d = JSON.stringify(da);
                         Login(data2, d, i);
                     }
+				}
                 }
             });
     }
