@@ -83,7 +83,7 @@ exports.post = function(request, response) {
             topic_id: da[i]
         }).read({
                 success: function(results1) {
-					if(results1!=null)
+					if(results1[0].hours_left!=null)
 					{
                     data1[i].hours_left = results1[0].hours_left.toString();
                     data1[i].renewal = results1[0].renewed_count.toString();
