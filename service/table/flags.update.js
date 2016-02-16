@@ -4,7 +4,7 @@ function update(item, user, request) {
 		//delete the opinion
 		var opinion = tables.getTable('opinion');
 		opinion.del({
-					opinion_id : item.opinion_id
+					id : item.to_delete_id
 				});
 	}
 		
