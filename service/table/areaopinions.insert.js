@@ -6,7 +6,7 @@ function insert(item, user, request) {
     item.notif_count = 0;
     item.notif_downvotes = 0;
     item.notif_upvotes = 0;
-    var topic = tables.getTable('topic');
+    var topic = tables.getTable('areatopics');
 	
 	 var user = tables.getTable('user');
 
