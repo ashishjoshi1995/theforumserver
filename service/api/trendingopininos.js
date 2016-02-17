@@ -17,6 +17,8 @@ exports.post = function(request, response) {
     var topic = tables.getTable('topic');
     opinion.orderByDescending("upvotes").read({
         success: function(results) {
+			if(results.length>0){
+			
             var a = 20;
             var string = results[0].topic_id;
             for (var j = 0; j < results.length; j++) {
@@ -69,6 +71,12 @@ exports.post = function(request, response) {
             var data2 = JSON.stringify(data);
             var d = JSON.stringify(tids);
             Login(data2, d, data.length - 1);
+			}
+			else{
+				response.send(statusCodes.OK, {
+                            message: "null"
+                        });
+			}
 
         }
     });
