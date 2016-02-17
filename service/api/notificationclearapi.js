@@ -49,9 +49,9 @@ exports.post = function(request, response) {
     }).read({
         success : function(results){
             for(var j=0;j <results.length;j++){
-                result[k].notif_count = 0;
-                result[k].notif_downvotes =0;
-                result[k].notif_upvotes =0;
+                results[k].notif_count = 0;
+                results[k].notif_downvotes =0;
+                results[k].notif_upvotes =0;
                 areaOpinion.update(results[j]);
             }
         }
